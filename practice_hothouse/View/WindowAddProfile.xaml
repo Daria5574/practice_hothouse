@@ -1,0 +1,100 @@
+﻿<Window x:Class="practice_hothouse.View.WindowAddProfile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:practice_hothouse.View"
+        mc:Ignorable="d"
+        Title="WindowAddProfile" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#015B27"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#009F43"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CancelButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#6E907C"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#AACFBA"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RoundedTextBox" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="6"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="6"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Rectangle Fill="#C0EEE8" Margin="0,0,0,345" HorizontalAlignment="Right" Width="800" />
+        <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\profile_logo.png" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="40" Margin="725,14,0,0" MouseLeftButtonDown="MouseLeftButtonDown_profile"/>
+        <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\logo.png" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="52" Margin="10,4,0,0" MouseLeftButtonDown="MouseLeftButtonDown_main"/>
+        <Label Content="Добавление новых сотрудников" HorizontalAlignment="Left" Margin="65,20,0,0" VerticalAlignment="Top" FontSize="18" x:Name="plotNameLabel"/>
+
+        <Button Content="Добавить" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" x:Name="AddButton" Click="AddButton_Click" Margin="632,390,0,0"/>
+        <Button Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CancelButtonStyle}" x:Name="CancelButton" Click="CancelButton_Click" Margin="538,390,0,0"/>
+
+        <Label Content="Имя:" HorizontalAlignment="Left" Margin="29,94,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,93,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="firstNameTextBox"/>
+
+        <Label Content="Фамилия:" HorizontalAlignment="Left" Margin="29,128,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="lastNameTextBox"/>
+
+        <Label Content="Отчество:" HorizontalAlignment="Left" Margin="29,162,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="middleNameTextBox"/>
+
+        <Label Content="Должность:" HorizontalAlignment="Left" Margin="29,198,0,0" VerticalAlignment="Top" FontSize="14" Width="94"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,198,0,0" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="positionTextBox"/>
+
+        <Label Content="Номер телефона:" HorizontalAlignment="Left" Margin="28,232,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,233,0,0" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="phoneNumberTextBox"/>
+
+        <Label Content="Электронная почта:" HorizontalAlignment="Left" Margin="28,269,0,0" VerticalAlignment="Top" FontSize="14" Width="154"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,268,0,0" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="emailTextBox"/>
+        <Label Content="Логин:" HorizontalAlignment="Left" Margin="28,304,0,0" VerticalAlignment="Top" FontSize="14" Width="154"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,303,0,0" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="loginTextBox"/>
+        <Label Content="Пароль:" HorizontalAlignment="Left" Margin="28,339,0,0" VerticalAlignment="Top" FontSize="14" Width="154"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,338,0,0" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="passwordTextBox"/>
+    </Grid>
+</Window>
