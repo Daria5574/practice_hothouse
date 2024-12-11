@@ -34,6 +34,7 @@ namespace practice_hothouse.View
                                 where hectare.HectareId == currentHectare.HectareId
                                 select new
                                 {
+                                    sowing.SowingId, // Добавляем SowingId
                                     sowing.SowingDate,
                                     seed.DaysToFirstHarvest,
                                     seed.HarvestFrequency,
@@ -41,19 +42,19 @@ namespace practice_hothouse.View
                                     SeedType = seed.SeedType,
                                     SeedVariety = seed.SeedVariety
                                 })
-                     .AsEnumerable() // Преобразуем в память, чтобы использовать локальную функцию
-                     .Select(data => new
-                     {
-                         data.SeedType,
-                         data.SeedVariety,
-                         GreenhouseHarvestDate = CalculateHarvestDate(
-                             data.SowingDate.HasValue ? data.SowingDate.Value.ToDateTime(TimeOnly.MinValue) : (DateTime?)null,
-                             data.DaysToFirstHarvest,
-                             data.HarvestFrequency,
-                             data.NumberOfHarvests)
-                     }).ToList();
+         .AsEnumerable()
+         .Select(data => new
+         {
+             data.SowingId, // Добавляем SowingId в анонимный объект
+             data.SeedType,
+             data.SeedVariety,
+             GreenhouseHarvestDate = CalculateHarvestDate(
+                 data.SowingDate.HasValue ? data.SowingDate.Value.ToDateTime(TimeOnly.MinValue) : (DateTime?)null,
+                 data.DaysToFirstHarvest,
+                 data.HarvestFrequency,
+                 data.NumberOfHarvests)
+         }).ToList();
 
-            // Локальная функция для вычисления даты
             DateTime? CalculateHarvestDate(DateTime? sowingDate, int? daysToFirstHarvest, int? harvestFrequency, int? numberOfHarvests)
             {
                 if (sowingDate == null || daysToFirstHarvest == null || harvestFrequency == null || numberOfHarvests == null)
@@ -69,8 +70,45 @@ namespace practice_hothouse.View
         }
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (sender is ListViewItem listViewItem)
+            {
+                // Получаем анонимный объект, содержащий данные, привязанные к ListView
+                var selectedItem = listViewItem.Content as dynamic;
 
+                if (selectedItem != null)
+                {
+                    // Извлекаем данные из анонимного объекта
+                    string seedType = selectedItem.SeedType;
+                    string seedVariety = selectedItem.SeedVariety;
+                    DateTime? greenhouseHarvestDate = selectedItem.GreenhouseHarvestDate;
+
+                    // Находим SowingId из данных (вам нужно добавить это в анонимный объект, если оно еще не включено)
+                    int sowingId = selectedItem.SowingId;
+
+                    // Ищем объект Sowing в базе данных по SowingId
+                    var sowingRecord = db.Sowings.FirstOrDefault(x => x.SowingId == sowingId);
+
+                    if (sowingRecord != null)
+                    {
+                        // Если запись найдена, передаем ее на новую страницу
+                        App.currentSowing = sowingRecord;
+                        WindowPlantingInfo windowPlantingInfo = new WindowPlantingInfo(App.currentSowing);
+                        windowPlantingInfo.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        // Если запись не найдена, показываем сообщение об ошибке
+                        MessageBox.Show("Запись не найдена.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка: Невозможно извлечь данные из элемента.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
+
         private void MouseLeftButtonDown_profile(object sender, MouseButtonEventArgs e)
         {
             WindowProfile wProfile = new WindowProfile(App.currentUser);

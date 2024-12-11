@@ -1,4 +1,5 @@
-﻿using System;
+﻿using practice_hothouse.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace practice_hothouse.View
     /// </summary>
     public partial class WindowAddPlot : Window
     {
+        DbHothouseContext db = new DbHothouseContext();
         public WindowAddPlot()
         {
             InitializeComponent();

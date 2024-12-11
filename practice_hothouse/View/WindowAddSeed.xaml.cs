@@ -1,4 +1,5 @@
-﻿using System;
+﻿using practice_hothouse.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,23 +20,44 @@ namespace practice_hothouse.View
     /// </summary>
     public partial class WindowAddSeed : Window
     {
+        DbHothouseContext db = new DbHothouseContext();
         public WindowAddSeed()
         {
             InitializeComponent();
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Сорт добавлен успешно!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+            string seedType = typeTextBox.Text.Trim();
+            string seedVariety = varietyTextBox.Text.Trim();
+            int daysToFirstHarvest = int.Parse(daysToFirstHarvestTextBox.Text.Trim());
+            int harvestFrequency = int.Parse(harvestFrequencyTextBox.Text.Trim());
+            int numberOfHarvests = int.Parse(numberOfHarvestsTextBox.Text.Trim());
+            string additionalNotes = additionalNotesTextBox.Text.Trim();
 
-            WindowProfile wProfile = new WindowProfile(App.currentUser);
-            wProfile.Show();
+            Seed newSeed = new Seed
+            {
+                SeedType = seedType,
+                SeedVariety = seedVariety,
+                DaysToFirstHarvest = daysToFirstHarvest,
+                HarvestFrequency = harvestFrequency,
+                NumberOfHarvests = numberOfHarvests,
+                AdditionalNotes = additionalNotes
+            };
+
+            db.Seeds.Add(newSeed);
+            db.SaveChanges();
+
+            MessageBox.Show("Семена добавлены успешно!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            WindowSeeds wSeeds = new WindowSeeds();
+            wSeeds.Show();
             Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowProfile wProfile = new WindowProfile(App.currentUser);
-            wProfile.Show();
+            WindowSeeds wSeeds = new WindowSeeds();
+            wSeeds.Show();
             Close();
         }
         private void DaysToFirstHarvestTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

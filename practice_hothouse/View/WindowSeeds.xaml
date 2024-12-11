@@ -50,7 +50,20 @@
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\profile_logo.png" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="40" Margin="725,14,0,0" MouseLeftButtonDown="MouseLeftButtonDown_profile"/>
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\logo.png" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="52" Margin="10,4,0,0" MouseLeftButtonDown="MouseLeftButtonDown_main"/>
         <Label Content="Управление семенами" HorizontalAlignment="Left" Margin="65,20,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Добавить" HorizontalAlignment="Left" Margin="555,99,0,0" VerticalAlignment="Top" Height="30" Width="88" FontSize="12" Click="Button_Add_Click"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="656,99,0,0" VerticalAlignment="Top" Height="30" Width="114" FontSize="12" Click="Button_Edit_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Добавить" HorizontalAlignment="Left" Margin="465,89,0,0" VerticalAlignment="Top" Height="30" Width="88" FontSize="12" Click="Button_Add_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="566,89,0,0" VerticalAlignment="Top" Height="30" Width="114" FontSize="12" Click="Button_Edit_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Удалить" HorizontalAlignment="Left" Margin="691,89,0,0" VerticalAlignment="Top" Height="30" Width="74" FontSize="12" Click="Button_Delete_Click"/>
+        <ListView Margin="35,134,25,10" x:Name="lvSeed">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Тип семян" DisplayMemberBinding="{Binding SeedType}" />
+                    <GridViewColumn Header="Сорт семян" DisplayMemberBinding="{Binding SeedVariety}" />
+                    <GridViewColumn Header="Дней до первого урожая" DisplayMemberBinding="{Binding DaysToFirstHarvest}" />
+                    <GridViewColumn Header="Частота сбора урожая" DisplayMemberBinding="{Binding HarvestFrequency}" />
+                    <GridViewColumn Header="Количество сборов" DisplayMemberBinding="{Binding NumberOfHarvests}" />
+                    <GridViewColumn Header="Дополнительные заметки" DisplayMemberBinding="{Binding AdditionalNotes}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

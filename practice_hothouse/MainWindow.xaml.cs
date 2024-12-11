@@ -51,7 +51,7 @@ namespace practice_hothouse
 
                 if (login == "adminka" && pass == "Admin5574!")
                 {
-                    App.UserRole = 2;
+                    App.UserRole = 3;
 
                     WindowPlots wPlots = new WindowPlots(App.currentUser);
                     wPlots.Show();
@@ -63,7 +63,13 @@ namespace practice_hothouse
 
                     if (authUser != null)
                     {
-                        int userRole = 0; 
+                        if (authUser.IsArhive == 1)
+                        {
+                            MessageBox.Show("Ваш профиль находится в архиве. Для восстановления доступа обратитесь к администратору.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return; 
+                        }
+
+                        int userRole = 0;
 
                         if (login.StartsWith("b", StringComparison.OrdinalIgnoreCase))
                         {
@@ -71,12 +77,12 @@ namespace practice_hothouse
                         }
                         else if (login.StartsWith("o", StringComparison.OrdinalIgnoreCase))
                         {
-                            userRole = 2; 
+                            userRole = 2;
                         }
                         else
                         {
-                            System.Windows.MessageBox.Show("Ошибка: Неопределённая роль для пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return; 
+                            MessageBox.Show("Ошибка: Неопределённая роль для пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
                         }
 
                         App.UserRole = userRole;
@@ -88,11 +94,11 @@ namespace practice_hothouse
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("Пользователь не найден. Проверьте правильность введённых данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Пользователь не найден. Проверьте правильность введённых данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-
             }
         }
+
     }
 }
