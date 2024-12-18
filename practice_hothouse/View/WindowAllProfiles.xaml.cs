@@ -9,12 +9,13 @@ namespace practice_hothouse.View
 {
     public partial class WindowAllProfiles : Window
     {
-        DbHothouseContext db = new DbHothouseContext();  // Создаем объект контекста базы данных
+        DbHothouseContext db = new DbHothouseContext();
 
         public WindowAllProfiles()
         {
             InitializeComponent();
-            LoadCurrentUsers();  // Загружаем текущих сотрудников при открытии окна
+            LoadCurrentUsers(); 
+            ToggleButtonsVisibility(true); 
         }
 
         private void MouseLeftButtonDown_profile(object sender, MouseButtonEventArgs e)
@@ -48,7 +49,6 @@ namespace practice_hothouse.View
             }
             else
             {
-                // Открытие окна для редактирования выбранного сотрудника
                 WindowEditProfile editProfileWindow = new WindowEditProfile(selectedUser);
                 editProfileWindow.Show();
                 Close();
@@ -57,37 +57,38 @@ namespace practice_hothouse.View
 
         private void Button_ShowArchive_Click(object sender, RoutedEventArgs e)
         {
-            lvCurrentUsers.Visibility = Visibility.Collapsed;  
-            lvArchiveUsers.Visibility = Visibility.Visible;   
+            lvCurrentUsers.Visibility = Visibility.Collapsed;
+            lvArchiveUsers.Visibility = Visibility.Visible;
 
-            btnArchive.Visibility = Visibility.Collapsed;      
-            btnUnarchive.Visibility = Visibility.Visible; 
+            btnShowArchive.Visibility = Visibility.Collapsed;
+            btnShowCurrent.Visibility = Visibility.Visible;
+
+            ToggleButtonsVisibility(false); 
 
             LoadArchiveUsers();
         }
 
         private void Button_ShowCurrent_Click(object sender, RoutedEventArgs e)
         {
-            lvCurrentUsers.Visibility = Visibility.Visible;    
-            lvArchiveUsers.Visibility = Visibility.Collapsed;  
+            lvCurrentUsers.Visibility = Visibility.Visible;
+            lvArchiveUsers.Visibility = Visibility.Collapsed;
 
-            btnArchive.Visibility = Visibility.Visible;      
-            btnUnarchive.Visibility = Visibility.Collapsed;
+            btnShowArchive.Visibility = Visibility.Visible;
+            btnShowCurrent.Visibility = Visibility.Collapsed;
 
-            LoadCurrentUsers(); 
+            ToggleButtonsVisibility(true); 
+
+            LoadCurrentUsers();
         }
-
 
         private void LoadCurrentUsers()
         {
-   
             var currentUsers = from user in db.Users
                                where user.IsArhive == 0
                                select user;
 
-         
             lvCurrentUsers.ItemsSource = currentUsers.ToList();
-            lvCurrentUsers.Items.Refresh(); 
+            lvCurrentUsers.Items.Refresh();
         }
 
         private void LoadArchiveUsers()
@@ -124,7 +125,7 @@ namespace practice_hothouse.View
 
         private void Button_RemoveFromArchive_Click(object sender, RoutedEventArgs e)
         {
-            if(lvArchiveUsers.SelectedItem == null)
+            if (lvArchiveUsers.SelectedItem == null)
             {
                 MessageBox.Show("Выберите сотрудника для удаления из архива.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -145,5 +146,12 @@ namespace practice_hothouse.View
             }
         }
 
+        private void ToggleButtonsVisibility(bool isCurrentUsers)
+        {
+            Button_Add.Visibility = isCurrentUsers ? Visibility.Visible : Visibility.Collapsed;
+            Button_Edit.Visibility = isCurrentUsers ? Visibility.Visible : Visibility.Collapsed;
+            btnArchive.Visibility = isCurrentUsers ? Visibility.Visible : Visibility.Collapsed;
+            btnUnarchive.Visibility = !isCurrentUsers ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 }

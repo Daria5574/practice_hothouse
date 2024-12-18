@@ -16,6 +16,7 @@ namespace practice_hothouse
         public static Hectare currentHectare = null;
         public static Seed currentSeed = null;
         public static Sowing currentSowing = null;
+        public static HarvestHistory currentHistory = null;
     }
 
 }

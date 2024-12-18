@@ -43,7 +43,6 @@ namespace practice_hothouse.View
                 if (sowingDate == null || daysToFirstHarvest == null || harvestFrequency == null || numberOfHarvests == null)
                     return null;
 
-                // Преобразование DateOnly? в DateTime?
                 DateTime? sowingDateTime = sowingDate?.ToDateTime(TimeOnly.MinValue);
 
                 return sowingDateTime.Value
@@ -58,22 +57,43 @@ namespace practice_hothouse.View
                 seedData.NumberOfHarvests
             );
 
-            // Добавляем 1 день к дате последнего урожая для получения даты уборки
+            DateTime? CalculateFirstHarvestDate(DateOnly? sowingDate, int? daysToFirstHarvest)
+            {
+                if (sowingDate == null || daysToFirstHarvest == null)
+                    return null;
+
+                DateTime? sowingDateTime = sowingDate?.ToDateTime(TimeOnly.MinValue);
+
+                return sowingDateTime.Value.AddDays(daysToFirstHarvest.Value);
+            }
+
+            DateTime? firstHarvestDate = CalculateFirstHarvestDate(
+                s.SowingDate,
+                seedData.DaysToFirstHarvest
+            );
+
             DateTime? cleanupDate = lastHarvestDate?.AddDays(1);
 
-
+            UpdateTotalYieldLabel(s.SowingId);
             titleLabel.Content = seedData.SeedType + " \"" + seedData.SeedVariety + "\" " + s.NumberInSeason + " посев";
             typeLabel.Content = "Тип: " + seedData.SeedType;  
             varietyLabel.Content = "Сорт: " + seedData.SeedVariety;  
             sowingDateLabel.Content = "Дата посева: " + s.SowingDate?.ToString("dd.MM.yyyy");  
             seedlingsCountLabel.Content = "Количество посаженной рассады: " + s.NumberOfPlantedSeeds.ToString(); 
             expectedYieldLabel.Content = "Ожидаемый урожай (кг): " + s.ExpectedYield.ToString();  
-            firstHarvestDateLabel.Content = "Планируемая дата первого сбора: " + s.ExpectedYield?.ToString("dd.MM.yyyy");  
+            firstHarvestDateLabel.Content = "Планируемая дата первого сбора: " + firstHarvestDate?.ToString("dd.MM.yyyy");  
             harvestFrequencyLabel.Content = "Периодичность сбора урожая: " + seedData.HarvestFrequency.ToString();  
             harvestCountLabel.Content = "Количество сборов: " + seedData.NumberOfHarvests.ToString();  
             lastHarvestDateLabel.Content = "Планируемая дата последнего урожая: " + lastHarvestDate?.ToString("dd.MM.yyyy"); 
             cleanupDateLabel.Content = "Дата уборки теплицы: " + cleanupDate?.ToString("dd.MM.yyyy");  
-            totalYieldLabel.Content = "Всего собрано урожая (кг): " + s.ActualYield.ToString(); 
+        }
+        private void UpdateTotalYieldLabel(int sowingId)
+        {
+            var totalYield = db.HarvestHistories
+                              .Where(h => h.SowingId == sowingId)
+                              .Sum(h => h.HarvestedAmount);
+
+            totalYieldLabel.Content = $"Всего собрано урожая (кг): {totalYield}";
         }
         public void MouseLeftButtonDown_main(object sender, MouseButtonEventArgs e)
         {
@@ -97,12 +117,18 @@ namespace practice_hothouse.View
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-
+            WindowHectareInfo wHectareInfo = new WindowHectareInfo(App.currentHectare);
+            wHectareInfo.Show();
+            Close();
         }
 
         private void historyButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var history = db.HarvestHistories.FirstOrDefault(u => u.SowingId == s.SowingId);
+            App.currentHistory = history;
+            WindowHistory wHistory = new WindowHistory(history);
+            wHistory.Show();
+            Close();
         }
     }
 }

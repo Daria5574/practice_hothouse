@@ -50,14 +50,13 @@
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\profile_logo.png" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="40" Margin="725,14,0,0" MouseLeftButtonDown="MouseLeftButtonDown_profile"/>
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\logo.png" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="52" Margin="10,4,0,0" MouseLeftButtonDown="MouseLeftButtonDown_main"/>
         <Label Content="Управление профилями" HorizontalAlignment="Left" Margin="65,20,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Добавить" HorizontalAlignment="Left" Margin="467,89,0,0" VerticalAlignment="Top" Height="30" Width="96" FontSize="12" Click="Button_Add_Click"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="568,89,0,0" VerticalAlignment="Top" Height="30" Width="114" FontSize="12" Click="Button_Edit_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Добавить" HorizontalAlignment="Left" Margin="467,89,0,0" VerticalAlignment="Top" Height="30" Width="96" FontSize="12" x:Name="Button_Add" Click="Button_Add_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="568,89,0,0" VerticalAlignment="Top" Height="30" Width="114" FontSize="12" x:Name="Button_Edit" Click="Button_Edit_Click"/>
         <Button x:Name="btnArchive" Style="{StaticResource ButtonStyle}" Content="В архив" HorizontalAlignment="Left" Margin="687,89,0,0" VerticalAlignment="Top" Height="30" Width="88" FontSize="12" Click="Button_Archive_Click" Visibility="Visible"/>
         <Button x:Name="btnUnarchive" Style="{StaticResource ButtonStyle}" Content="Из архива" HorizontalAlignment="Left" Margin="687,89,0,0" VerticalAlignment="Top" Height="30" Width="88" FontSize="12" Click="Button_RemoveFromArchive_Click"  Visibility="Collapsed"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Архив сотрудников" HorizontalAlignment="Left" Margin="187,89,0,0" VerticalAlignment="Top" Height="30" Width="145" FontSize="12" Click="Button_ShowArchive_Click"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Текущие сотрудники" HorizontalAlignment="Left" Margin="28,89,0,0" VerticalAlignment="Top" Height="30" Width="154" FontSize="12" Click="Button_ShowCurrent_Click"/>
+        <Button x:Name="btnShowCurrent" Style="{StaticResource ButtonStyle}" Content="Текущие сотрудники" HorizontalAlignment="Left" Margin="30,89,0,0" VerticalAlignment="Top" Height="30" Width="152" FontSize="12" Click="Button_ShowCurrent_Click"/>
+        <Button x:Name="btnShowArchive" Style="{StaticResource ButtonStyle}" Content="Архив сотрудников" HorizontalAlignment="Left" Margin="30,89,0,0" VerticalAlignment="Top" Height="30" Width="152" FontSize="12" Click="Button_ShowArchive_Click"/>
 
-        <!-- ListView для текущих сотрудников -->
         <ListView Name="lvCurrentUsers" HorizontalAlignment="Center" Height="265" Margin="0,134,0,0" VerticalAlignment="Top" Width="730">
             <ListView.View>
                 <GridView>

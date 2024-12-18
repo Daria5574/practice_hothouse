@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace practice_hothouse.View
@@ -13,23 +14,19 @@ namespace practice_hothouse.View
         public WindowAddProfile()
         {
             InitializeComponent();
+            LoadPlots();  
+        }
+
+        private void LoadPlots()
+        {
+            var plots = db.Plots.ToList();
+            plotIdComboBox.ItemsSource = plots;
+            plotIdComboBox.DisplayMemberPath = "PlotName";  
+            plotIdComboBox.SelectedValuePath = "PlotId";    
         }
 
         private bool ValidateFields()
         {
-            //if (string.IsNullOrWhiteSpace(firstNameTextBox.Text) ||
-            //    string.IsNullOrWhiteSpace(lastNameTextBox.Text) ||
-            //    string.IsNullOrWhiteSpace(middleNameTextBox.Text) ||
-            //    string.IsNullOrWhiteSpace(positionTextBox.Text) ||
-            //    string.IsNullOrWhiteSpace(phoneNumberTextBox.Text) ||
-            //    string.IsNullOrWhiteSpace(emailTextBox.Text) ||
-            //    string.IsNullOrWhiteSpace(loginTextBox.Text) ||
-            //    string.IsNullOrWhiteSpace(passwordTextBox.Text))
-            //{
-            //    MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //    return false;
-            //}
-
             if (!IsValidEmail(emailTextBox.Text))
             {
                 MessageBox.Show("Пожалуйста, введите правильный email.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -48,8 +45,7 @@ namespace practice_hothouse.View
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateFields()) return;
-            int plotID = int.Parse(plotIdTextBox.Text.Trim());
-
+            int plotID = (int)plotIdComboBox.SelectedValue;
             var newUser = new User
             {
                 PlotId = plotID,
@@ -61,7 +57,7 @@ namespace practice_hothouse.View
                 Email = emailTextBox.Text,
                 Login = loginTextBox.Text,
                 Password = passwordTextBox.Text,
-                IsArhive = 0 // Сотрудник не архивный
+                IsArhive = 0 
             };
 
             try
@@ -71,8 +67,8 @@ namespace practice_hothouse.View
 
                 MessageBox.Show("Сотрудник добавлен успешно!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                WindowProfile wProfile = new WindowProfile(App.currentUser);
-                wProfile.Show();
+                WindowAllProfiles wAllProfiles = new WindowAllProfiles();
+                wAllProfiles.Show();
                 Close();
             }
             catch (Exception ex)
@@ -83,14 +79,14 @@ namespace practice_hothouse.View
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowProfile wProfile = new WindowProfile(App.currentUser);
-            wProfile.Show();
+            WindowAllProfiles wAllProfiles = new WindowAllProfiles();
+            wAllProfiles.Show();
             Close();
         }
 
         private void MouseLeftButtonDown_profile(object sender, MouseButtonEventArgs e)
         {
-            WindowProfile wProfile = new WindowProfile(App.currentUser);
+            WindowAllProfiles wProfile = new WindowAllProfiles();
             wProfile.Show();
             Close();
         }

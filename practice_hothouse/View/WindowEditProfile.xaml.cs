@@ -28,7 +28,10 @@ namespace practice_hothouse.View
             InitializeComponent();
             _userToEdit = user;
 
-            plotIdTextBox.Text = user.PlotId.ToString();
+            var availablePlots = db.Plots.ToList();
+            plotIdComboBox.ItemsSource = availablePlots;
+            plotIdComboBox.SelectedValue = user.PlotId;  
+
             firstNameTextBox.Text = user.UserFname;
             lastNameTextBox.Text = user.UserLname;
             secondNameTextBox.Text = user.UserSname;
@@ -41,7 +44,7 @@ namespace practice_hothouse.View
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            _userToEdit.PlotId = int.Parse(plotIdTextBox.Text.Trim());
+            _userToEdit.PlotId = (int)plotIdComboBox.SelectedValue;
             _userToEdit.UserFname = firstNameTextBox.Text.Trim();
             _userToEdit.UserLname = lastNameTextBox.Text.Trim();
             _userToEdit.UserSname = secondNameTextBox.Text.Trim();
@@ -66,15 +69,16 @@ namespace practice_hothouse.View
             db.SaveChanges();
             MessageBox.Show("Профиль успешно обновлен!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            WindowAllProfiles wProfiles = new WindowAllProfiles();
-            wProfiles.Show();
+            WindowAllProfiles wAllProfiles = new WindowAllProfiles();
+            wAllProfiles.Show();
             Close();
         }
 
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowAllProfiles wProfiles = new WindowAllProfiles();
-            wProfiles.Show();
+            WindowAllProfiles wAllProfiles = new WindowAllProfiles();
+            wAllProfiles.Show();
             Close();
         }
 

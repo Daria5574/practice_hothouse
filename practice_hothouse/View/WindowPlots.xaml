@@ -55,8 +55,6 @@
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\plot2.png" HorizontalAlignment="Left" Height="175" VerticalAlignment="Top" Width="180" Margin="210,144,0,0" MouseLeftButtonDown="MouseLeftButtonDown_plot2"/>
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\plot3.png" HorizontalAlignment="Left" Height="175" VerticalAlignment="Top" Width="175" Margin="405,144,0,0" MouseLeftButtonDown="MouseLeftButtonDown_plot3"/>
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\plot4.png" HorizontalAlignment="Left" Height="175" VerticalAlignment="Top" Width="175" Margin="595,144,0,0" MouseLeftButtonDown="MouseLeftButtonDown_plot4"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Добавить" HorizontalAlignment="Left" Margin="470,99,0,0" VerticalAlignment="Top" Height="30" Width="88" FontSize="12" Click="Button_Add_Click"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="568,99,0,0" VerticalAlignment="Top" Height="30" Width="114" FontSize="12" Click="Button_Edit_Click"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Удалить" HorizontalAlignment="Left" Margin="695,99,0,0" VerticalAlignment="Top" Height="30" Width="75" FontSize="12" Click="Button_Edit_Click"/>
+
     </Grid>
 </Window>

@@ -45,7 +45,6 @@
             </Style.Triggers>
         </Style>
 
-        <!-- TextBox Style -->
         <Style x:Key="RoundedTextBox" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
@@ -64,27 +63,26 @@
     </Window.Resources>
 
     <Grid>
+        <Label Content="Ожидаемый урожай (кг):" HorizontalAlignment="Left" Margin="56,290,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Margin="230,289,0,0" VerticalAlignment="Top" Width="515" Height="30" FontSize="12" x:Name="expectedYieldTextBox"/>
         <Rectangle Fill="#C0EEE8" Margin="0,0,0,345" HorizontalAlignment="Right" Width="800" />
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\profile_logo.png" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="40" Margin="725,14,0,0" MouseLeftButtonDown="MouseLeftButtonDown_profile"/>
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\logo.png" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="52" Margin="10,4,0,0" MouseLeftButtonDown="MouseLeftButtonDown_main"/>
         <Label Content="Добавление новых посевов" HorizontalAlignment="Left" Margin="65,20,0,0" VerticalAlignment="Top" FontSize="18" x:Name="plotNameLabel"/>
 
-        <Button Content="Добавить" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" x:Name="AddButton" Click="AddButton_Click" Margin="632,349,0,0" />
-        <Button Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CancelButtonStyle}" x:Name="CancelButton" Click="CancelButton_Click" Margin="535,349,0,0"/>
+        <Button Content="Добавить" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" x:Name="AddButton" Click="AddButton_Click" Margin="657,353,0,0" />
+        <Button Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CancelButtonStyle}" x:Name="CancelButton" Click="CancelButton_Click" Margin="565,353,0,0"/>
 
-        <Label Content="Гектар:" HorizontalAlignment="Left" Margin="26,94,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <ComboBox HorizontalAlignment="Left" Margin="187,93,0,10" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="hectareComboBox"/>
+        <Label Content="Семена:" HorizontalAlignment="Left" Margin="56,109,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <ComboBox HorizontalAlignment="Left" Margin="230,108,0,0" VerticalAlignment="Top" Width="515" Height="30" FontSize="12" x:Name="seedComboBox"/>
 
-        <Label Content="Семена:" HorizontalAlignment="Left" Margin="26,134,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <ComboBox HorizontalAlignment="Left" Margin="187,133,0,0" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="seedComboBox"/>
+        <Label Content="Дата посева:" HorizontalAlignment="Left" Margin="57,192,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <DatePicker HorizontalAlignment="Left" Margin="230,192,0,0" VerticalAlignment="Top" Width="515" Height="30" x:Name="sowingDatePicker"/>
 
-        <Label Content="Дата посева:" HorizontalAlignment="Left" Margin="27,217,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <DatePicker HorizontalAlignment="Left" Margin="187,217,0,0" VerticalAlignment="Top" Width="528" Height="30" x:Name="sowingDatePicker"/>
+        <Label Content="Количество семян:" HorizontalAlignment="Left" Margin="56,240,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Margin="230,239,0,0" VerticalAlignment="Top" Width="515" Height="30" FontSize="12" x:Name="numberOfPlantedSeedsTextBox"/>
 
-        <Label Content="Количество семян:" HorizontalAlignment="Left" Margin="26,269,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox HorizontalAlignment="Left" Margin="187,268,0,0" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="numberOfPlantedSeedsTextBox"/>
-
-        <Label Content="Номер посева в сезоне:" HorizontalAlignment="Left" Margin="26,174,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox HorizontalAlignment="Left" Margin="187,174,0,0" VerticalAlignment="Top" Width="528" Height="30" FontSize="12" x:Name="seasonSowingOrderTextBox"/>
+        <Label Content="Номер посева в сезоне:" HorizontalAlignment="Left" Margin="56,149,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Margin="230,149,0,0" VerticalAlignment="Top" Width="515" Height="30" FontSize="12" x:Name="seasonSowingOrderTextBox"/>
     </Grid>
 </Window>

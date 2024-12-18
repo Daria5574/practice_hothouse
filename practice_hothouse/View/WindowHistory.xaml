@@ -1,11 +1,11 @@
-﻿<Window x:Class="practice_hothouse.View.WindowAddPlot"
+﻿<Window x:Class="practice_hothouse.View.WindowHistory"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:practice_hothouse.View"
         mc:Ignorable="d"
-        Title="WindowAddPlot" Height="450" Width="800">
+        Title="WindowHistory" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#015B27"/>
@@ -53,14 +53,32 @@
             <Setter Property="Padding" Value="6"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Rectangle Fill="#C0EEE8" Margin="0,0,0,345" HorizontalAlignment="Right" Width="800" />
+    <Grid Margin="0,0,0,-26">
+        <Rectangle Fill="#C0EEE8" Height="65" VerticalAlignment="Top" />
+        <Label Content="Томат 'Де Барао' 1 посев" HorizontalAlignment="Left" Margin="70,20,0,0" VerticalAlignment="Top" FontSize="18" x:Name="titleLabel"/>
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\profile_logo.png" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="40" Margin="725,14,0,0" MouseLeftButtonDown="MouseLeftButtonDown_profile"/>
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\logo.png" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="52" Margin="10,4,0,0" MouseLeftButtonDown="MouseLeftButtonDown_main"/>
-        <Label Content="Добавление нового участка" HorizontalAlignment="Left" Margin="65,20,0,0" VerticalAlignment="Top" FontSize="18" x:Name="plotNameLabel"/>
-        <TextBox HorizontalAlignment="Left" Margin="186,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="529" x:Name="nameTextBox" Height="35"/>
-        <Button Content="Добавить" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" x:Name="AddButton" Click="AddButton_Click" Margin="632,256,0,0"/>
-        <Button Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CancelButtonStyle}" x:Name="CancelButton" Click="CancelButton_Click" Margin="530,256,0,0"/>
-        <Label Content="Название:" HorizontalAlignment="Left" Margin="65,156,0,0" VerticalAlignment="Top" FontSize="18"/>
+
+        <Button Style="{StaticResource CancelButtonStyle}" Content="Вернуться" HorizontalAlignment="Left" Margin="665,88,0,0" VerticalAlignment="Top" Height="34" Width="100" FontSize="14" x:Name="backButton" Click="backButton_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Добавить" HorizontalAlignment="Left" Margin="35,88,0,0" VerticalAlignment="Top" Height="34" Width="100" FontSize="14" x:Name="addButton" Click="addButton_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="140,88,0,0" VerticalAlignment="Top" Height="34" Width="125" FontSize="14" x:Name="editButton" Click="editButton_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Удалить" HorizontalAlignment="Left" Margin="270,88,0,0" VerticalAlignment="Top" Height="34" Width="90" FontSize="14" x:Name="deleteButton" Click="deleteButton_Click"/>
+        <ListView Margin="35,144,35,85" x:Name="lvHistory">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Дата сбора">
+                        <GridViewColumn.DisplayMemberBinding>
+                            <Binding Path="HarvestDate" StringFormat="{}{0:dd.MM.yyyy}" />
+                        </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
+
+
+                    <GridViewColumn Header="Собрано (кг)" DisplayMemberBinding="{Binding HarvestAmount}" />
+
+                    <GridViewColumn Header="Сотрудник" DisplayMemberBinding="{Binding FIO_User}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>

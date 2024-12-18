@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="WindowHectareInfo" Height="450" Width="800">
     <Window.Resources>
-        <Style  x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#9CB8B4"/>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#015B27"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -21,21 +22,30 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#D9ECEA"/>
+                    <Setter Property="Background" Value="#009F43"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="RoundedTextBox" TargetType="TextBox">
+
+        <Style x:Key="CancelButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#6E907C"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <ScrollViewer x:Name="PART_ContentHost" />
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#AACFBA"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
+
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Padding" Value="6"/>
@@ -45,31 +55,51 @@
             <Setter Property="Padding" Value="6"/>
         </Style>
     </Window.Resources>
+
     <Grid>
         <Rectangle Fill="#C0EEE8" Margin="0,0,0,345" HorizontalAlignment="Right" Width="800" />
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\profile_logo.png" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="40" Margin="725,14,0,0" MouseLeftButtonDown="MouseLeftButtonDown_profile"/>
         <Image Source="C:\Users\Acer\OneDrive\Рабочий стол\4 курс практика\logo.png" HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="52" Margin="10,4,0,0" MouseLeftButtonDown="MouseLeftButtonDown_main"/>
         <Label Content="Вы выбрали какой-то гектар!" HorizontalAlignment="Left" Margin="65,20,0,0" VerticalAlignment="Top" FontSize="18" x:Name="nameLabel"/>
-        <Label Content="Информация по гектару:" HorizontalAlignment="Left" Margin="35,89,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button Style="{StaticResource ButtonStyle}" Content="Вернуться" HorizontalAlignment="Left" Margin="646,99,0,0" VerticalAlignment="Top" Height="30" Width="103" FontSize="14" Click="Button_Back_Click"/>
-        <ListView Margin="35,144,35,85" x:Name="lvHectare">
+        <Button Style="{StaticResource CancelButtonStyle}" Content="Вернуться" HorizontalAlignment="Left" Margin="512,102,0,0" VerticalAlignment="Top" Height="30" Width="103" FontSize="14" Click="Button_Back_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Добавить" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" Height="31" Width="96" FontSize="12" x:Name="Button_Add" Click="Button_Add_Click"/>
+        <Button Style="{StaticResource ButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="133,101,0,0" VerticalAlignment="Top" Height="30" Width="114" FontSize="12" x:Name="Button_Edit" Click="Button_Edit_Click"/>
+        <Button x:Name="btnArchive" Style="{StaticResource ButtonStyle}" Content="Закрыть сбор" HorizontalAlignment="Left" Margin="259,100,0,0" VerticalAlignment="Top" Height="32" Width="106" FontSize="12" Click="Button_Archive_Click" Visibility="Visible"/>
+
+        <Button Style="{StaticResource ButtonStyle}" 
+            Content="Закрытые сборы" HorizontalAlignment="Left" 
+            Margin="620,102,0,0" 
+            VerticalAlignment="Top" 
+            Height="30" 
+            Width="150" 
+            FontSize="14" 
+            x:Name="toggleButton" 
+            Click="ToggleButton_Click"/>
+
+        <ListView x:Name="lvOpenHarvest" Margin="30,149,30,64" Visibility="Visible">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Тип семян" DisplayMemberBinding="{Binding SeedType}" />
-
                     <GridViewColumn Header="Сорт семян" DisplayMemberBinding="{Binding SeedVariety}" />
-
-                    <GridViewColumn Header="Дата последнего сбора" 
-                            DisplayMemberBinding="{Binding GreenhouseHarvestDate, StringFormat=\{0:dd.MM.yyyy\}}" />
+                    <GridViewColumn Header="Номер посева" DisplayMemberBinding="{Binding NumberInSeason}" />
+                    <GridViewColumn Header="Дата последнего сбора" DisplayMemberBinding="{Binding GreenhouseHarvestDate, StringFormat=\{0:dd.MM.yyyy\}}" />
+                    <GridViewColumn Header="Ожидаемый урожай (кг)" DisplayMemberBinding="{Binding ExpectedYield}" />
+                    <GridViewColumn Header="Собрано урожая (кг)" DisplayMemberBinding="{Binding TotalYield}" />
                 </GridView>
             </ListView.View>
-
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BackgroundColor}" Value="Red">
+                            <Setter Property="Background" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BackgroundColor}" Value="Green">
+                            <Setter Property="Background" Value="Green"/>
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
-
             <ListView.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="20" />
@@ -77,6 +107,41 @@
             </ListView.Resources>
         </ListView>
 
-        <Label Content="* Нажмите на нужный посев, чтобы узнать подробную информацию о нем." HorizontalAlignment="Left" Margin="35,364,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <ListView x:Name="lvClosedHarvest" Margin="30,149,30,64" Visibility="Collapsed">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Тип семян" DisplayMemberBinding="{Binding SeedType}" />
+                    <GridViewColumn Header="Сорт семян" DisplayMemberBinding="{Binding SeedVariety}" />
+                    <GridViewColumn Header="Номер посева" DisplayMemberBinding="{Binding NumberInSeason}" />
+                    <GridViewColumn Header="Дата последнего сбора" DisplayMemberBinding="{Binding GreenhouseHarvestDate, StringFormat=\{0:dd.MM.yyyy\}}" />
+                    <GridViewColumn Header="Ожидаемый урожай (кг)" DisplayMemberBinding="{Binding ExpectedYield}" />
+                    <GridViewColumn Header="Собрано урожая (кг)" DisplayMemberBinding="{Binding TotalYield}" />
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BackgroundColor}" Value="Red">
+                            <Setter Property="Background" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BackgroundColor}" Value="Green">
+                            <Setter Property="Background" Value="Green"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="20" />
+                </Style>
+            </ListView.Resources>
+        </ListView>
+        <Button Style="{StaticResource ButtonStyle}" Content="Импортировать данные" 
+        HorizontalAlignment="Left" Margin="594,375,0,0" 
+        VerticalAlignment="Top" Height="30" Width="185" FontSize="14" 
+        x:Name="exportButton" Click="ExportButton_Click" Visibility="Collapsed" />
+
+        <Label Content="* Нажмите дважды на нужный посев, чтобы узнать подробную информацию о нем." HorizontalAlignment="Left" Margin="35,375,0,0" VerticalAlignment="Top" FontSize="14"/>
     </Grid>
 </Window>
