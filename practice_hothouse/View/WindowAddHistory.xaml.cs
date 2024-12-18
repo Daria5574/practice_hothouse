@@ -34,7 +34,6 @@ namespace practice_hothouse.View
             employeeComboBox.SelectedValuePath = "UserId";   
         }
 
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateFields()) return;
